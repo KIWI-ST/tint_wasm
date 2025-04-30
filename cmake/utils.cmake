@@ -1,0 +1,36 @@
+# collect target files and group in SOURCE FILES and HEADER FILES
+# example:
+#   collect_group_all_target_files(${CMAKE_CURRENT_SOURCE_DIR} SOURCEFILES)
+#   add_library(you_project_name STATIC ${SOURCEFILES})
+function(collect_group_all_target_files TARGET_DIR OUT_SOURCE_FILES)
+    # ${CMAKE_CURRENT_SOURCE_DIR}
+    file(GLOB_RECURSE TARGET_SOURCE_FILES ${TARGET_DIR} "*.h" "*.cpp" "*.cc" "*.hpp")
+    foreach(FILE ${TARGET_SOURCE_FILES})
+        get_filename_component(PARENT_DIR "${FILE}" DIRECTORY)
+        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}" "" GROUP "${PARENT_DIR}")
+        string(REPLACE "/" "\\" GROUP "${GROUP}")
+        if("${FILE}" MATCHES ".*\\.cpp" OR "${FILE}" MATCHES ".*\\.cc")
+            set(GROUP "Source Files${GROUP}")
+        elseif("${FILE}" MATCHES ".*\\.h")
+            set(GROUP "Header Files${GROUP}")
+        endif()
+        source_group("${GROUP}" FILES "${FILE}")
+    endforeach()
+    set(${OUT_SOURCE_FILES} ${TARGET_SOURCE_FILES} PARENT_SCOPE)
+endfunction()
+
+# all project targets in dir
+# example: "collect_all_targets_recursive(DEPS, "")"
+macro(do_collect_all_targets_recursive targets dir)
+    get_property(subdirectories DIRECTORY ${dir} PROPERTY SUBDIRECTORIES)
+    foreach(subdir ${subdirectories})
+        do_collect_all_targets_recursive(${targets} ${subdir})
+    endforeach()
+    get_property(current_targets DIRECTORY ${dir} PROPERTY BUILDSYSTEM_TARGETS)
+    list(APPEND ${targets} ${current_targets})
+endmacro()
+function(collect_all_targets_recursive targets dir)
+    set(targets_out)
+        do_collect_all_targets_recursive(targets_out ${dir})
+    set(${targets} ${targets_out} PARENT_SCOPE)
+endfunction()

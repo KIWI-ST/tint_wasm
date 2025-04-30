@@ -1,0 +1,84 @@
+# build
+build/**/*
+!build/README.md
+out/**/*
+.vs/**/*
+.VSCodeCounter/**/*
+
+# doc gen
+doc/gen/**/*
+
+# cache
+.cache/**/*
+
+tools/tint/depot_tools/**/*
+tools/tint/install/**/*
+tools/tint/tint/**/*
+tools/tint/tint.build/**/*
+
+tools/dawn/depot_tools/**/*
+tools/dawn/install/**/*
+tools/dawn/dawn/**/*
+tools/dawn/dawn.build/**/*
+
+tools/dawn/dawn/
+tools/dawn/depot_tools/
+
+external/dawn/**/*
+external/tint/**/*
+
+#
+vcpkg_installed/**/*
+
+# thrid_party
+# third_party/dawn
+# third_party/dawn/
+# third_party/dawn/**/*
+# third_party/dawn/third_party/glslang/**/*
+# third_party/glfw/
+# third_party/glm/
+# third_party/googletest/
+
+# tests
+tests/unit_assets/smaa/debug_edge.png
+tests/unit_assets/smaa/debug_output.png
+tests/unit_assets/smaa/debug_weight.png
+
+# 
+.
+
+# Prerequisites
+*.DS_Store
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+# *.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+# *.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# asset/obj
+!tests/assets/obj/**/*.obj
