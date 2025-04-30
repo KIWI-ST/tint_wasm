@@ -34,6 +34,8 @@ namespace reflect
 
     WGSLReflector::WGSLReflector( )
     {
+        // TODO:: TEST API VAILD, 
+        // wgpuRenderPassEncoderMultiDrawIndexedIndirect(nullptr, nullptr, 0, 0, nullptr, 0);
     }
 
     const WGPUVertexFormat WGSLReflector::GetWGPUVertexFormatByCompositionComponent(
