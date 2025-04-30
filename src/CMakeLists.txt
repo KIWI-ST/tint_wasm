@@ -8,7 +8,9 @@ add_library(tint_wasm STATIC ${SOURCEFILES})
 # https://github.com/kainino0x/webgpu-cross-platform-demo/blob/main/CMakeLists.txt
 
 if(EMSCRIPTEN)
-    set(PORT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../third_party/dawn/src/emdawnwebgpu/pkg)
+    # set(PORT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../third_party/dawn/src/emdawnwebgpu/pkg)
+    set(PORT_DIR ${CMAKE_CURRENT_LIST_DIR}/../third_party/emdawnwebgpu_pkg)
+    # target_link_directories(tint_wasm PRIVATE ${CMAKE_CURRENT_LIST_DIR}/../third_party/emdawnwebgpu_pkg/webgpu/include/)
     add_compile_options(
         "-fno-exceptions"
         "$<$<CONFIG:Release>:-flto>"
@@ -32,8 +34,10 @@ if(EMSCRIPTEN)
         "$<$<CONFIG:Debug>:-Wno-limited-postlink-optimizations>"
         "$<$<CONFIG:Release>:--closure=1>"
     )
-#TODO:: remove tint
+    #TODO:: remove tint
     target_link_libraries(tint_wasm PRIVATE
+        emdawnwebgpu_config
+        emdawnwebgpu_c
         tint_lang_wgsl_inspector 
         tint_lang_wgsl_reader
     )
