@@ -28,5 +28,8 @@ else()
     message("tint_wasm supports wasm/win32 build.")
 endif()
 
-# include nano renderer gems    
+# include tint_wasm
 add_subdirectory(src)
+
+# include tests
+add_subdirectory(tests)
