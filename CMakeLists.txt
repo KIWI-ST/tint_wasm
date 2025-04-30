@@ -18,15 +18,14 @@ project(
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include(cmake/options.cmake)
-
 # helper
 
 if(EMSCRIPTEN)
-    include(cmake/options.cmake)
     include(cmake/cond.wasm.cmake)
+elseif(WIN32)
+    include(cmake/cond.win32.cmake)
 else()
-    message("tint_wasm only supports wasm build")
+    message("tint_wasm supports wasm/win32 build.")
 endif()
 
 # include nano renderer gems    

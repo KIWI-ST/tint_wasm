@@ -1,17 +1,23 @@
 #pragma once
 
+#include <memory>
+#include <vector>
+#include <unordered_map>
+#include <string>
+
 #include <tint/tint.h>
 #include <webgpu/webgpu.h>
 
-class WGSLReflector 
+class WGSLReflector
 {
 
 public:
-    explicit WGSLReflector();
+    explicit WGSLReflector( );
 
-    ~WGSLReflector() = default;
+    ~WGSLReflector( ) = default;
+
 public:
-    void ReflectShaderAttributes( 
+    void ReflectShaderAttributes(
         const std::string& code,
         const std::string& entry_point,
         uint8_t& attribute_count,
@@ -30,8 +36,29 @@ public:
         std::unordered_map<uint32_t, std::vector<tint::inspector::ResourceBinding>>& group_id_with_resource_bindings_map,
         const tint::wgsl::reader::Options& parse_option
     ) const;
-private:
 
-}
+private:
+    const WGPUVertexFormat GetWGPUVertexFormatByCompositionComponent(
+        const tint::inspector::CompositionType& composition_type,
+        const tint::inspector::ComponentType& component_type
+    ) const;
+
+    const WGPUBufferBindingType GetBufferBindingTypeByResourceType(
+        const tint::inspector::ResourceBinding::ResourceType& resource_type
+    ) const;
+
+    const WGPUTextureSampleType GetTextureSampleType(
+        const bool is_sampler_use,
+        const tint::inspector::ResourceBinding::SampledKind& tint_sampler_kind,
+        const tint::inspector::ResourceBinding::TexelFormat& texel_format
+    ) const;
+
+    const WGPUTextureFormat GetTextureFormatByTintTexelFormat(
+        const tint::inspector::ResourceBinding::TexelFormat& tint_texel_format) const;
+
+    const WGPUTextureViewDimension GetTextureViewDimensionByTextureDimFormat(
+        const tint::inspector::ResourceBinding::TextureDimension& texture_dim) const;
+
+};
 
 using WGSLReflectorPtr = std::shared_ptr<WGSLReflector>;
