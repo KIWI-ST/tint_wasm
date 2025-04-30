@@ -415,4 +415,3 @@ void WGSLReflector::ReflectShaderUniforms(
     // multi bind group layouts recomposite accroding to vector index
     bind_group_count = group_id_with_binding_layout_map.size( );
 }
-

@@ -3,5 +3,9 @@
 > build this project
 
 ```shell
-emcmake cmake -B build -S. -G Ninja  
+// native
+cmake -B build/native -S. -G "Visual Studio 17 2022"
+
+// emscripten
+emcmake cmake -B build/wasm -S. -G Ninja
 ```
